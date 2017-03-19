@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_right_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.nick.gti350banking.RightMenuActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:weightSum="7"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rightmenubutton"
+                android:onClick="closeMenu"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/titlebackground">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menu"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="35sp"
+                android:layout_marginTop="7sp"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:textColor="#FFFFFF"
+                android:text="Home"
+                android:background="@drawable/titlebackground"
+                android:layout_marginTop="5px"
+                android:onClick="goHome"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:textColor="#FFFFFF"
+                android:text="Interact e-Transfer"
+                android:background="@drawable/titlebackground"
+                android:layout_marginTop="5px"
+                android:onClick="interacTransfer"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:textColor="#FFFFFF"
+                android:text="Transfer"
+                android:background="@drawable/titlebackground"
+                android:layout_marginTop="5px"
+                android:onClick="transfer"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:textColor="#FFFFFF"
+                android:text="Schedule an appointment"
+                android:background="@drawable/titlebackground"
+                android:layout_marginTop="5px"
+                android:onClick="schedule"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:textColor="#FFFFFF"
+                android:text="Signal stolen card"
+                android:background="@drawable/titlebackground"
+                android:layout_marginTop="5px"
+                android:onClick="signalStolenCard"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:textColor="#FFFFFF"
+                android:text="Make a payment"
+                android:background="@drawable/titlebackground"
+                android:layout_marginTop="5px"
+                android:onClick="makeAPayment"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:text="Disconnect"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/titlebackground"
+                android:layout_marginTop="5px"
+                android:onClick="disconnect"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
