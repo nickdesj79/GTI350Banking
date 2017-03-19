@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class TransferActivity extends AppCompatActivity {
 
     private OnlineAccount account;
@@ -125,6 +127,8 @@ public class TransferActivity extends AppCompatActivity {
 
     private void updateAccountBalances(String fromAccount, String toAccount,int amount) {
 
+
+
         if(fromAccount.startsWith("Checking")) {
             account.getChekingAccount().setAmount(account.getChekingAccount().getAmount()-amount);
             account.getSavingAccount().setAmount(account.getSavingAccount().getAmount()+amount);
@@ -132,6 +136,20 @@ public class TransferActivity extends AppCompatActivity {
             account.getChekingAccount().setAmount(account.getChekingAccount().getAmount()+amount);
             account.getSavingAccount().setAmount(account.getSavingAccount().getAmount()-amount);
         }
+
+        OnlineAccount accountToRemove = null;
+        //change directly the value of the account in the server
+        for(OnlineAccount a : SingletonAccountManager.getInstance().getAccountList()) {
+            if(a.getEmail().equals(account.getEmail())) {
+                accountToRemove = a;
+            }
+        }
+        SingletonAccountManager.getInstance().getAccountList().remove(accountToRemove);
+        SingletonAccountManager.getInstance().addAccount(account);
+
+        ArrayList<OnlineAccount> list = SingletonAccountManager.getInstance().getAccountList();
+
+
         Intent i = new Intent(getApplicationContext(), MainMenuActivity.class);
 
         i.putExtra("account", account);
