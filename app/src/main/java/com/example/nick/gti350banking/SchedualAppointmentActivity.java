@@ -1,11 +1,16 @@
 package com.example.nick.gti350banking;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -114,6 +119,111 @@ public class SchedualAppointmentActivity extends AppCompatActivity {
 
         adapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         minSpinner.setAdapter(adapter5);
+    }
+
+    //TODO
+    //Analyse si la date sélectionner par l'utilisateur est plus vieille que le temps actuel.
+    //il n'est pas possible de prendre un rendez-vous à une date déja passé.
+    public void confirmSchedule(View v) {
+
+        EditText subjectET = (EditText) findViewById(R.id.subject);
+        String subject = subjectET.getText().toString();
+
+        Spinner daySpinner = (Spinner) findViewById(R.id.day);
+        String day = daySpinner.getSelectedItem().toString();
+
+        Spinner monthSpinner = (Spinner) findViewById(R.id.month);
+        String month = monthSpinner.getSelectedItem().toString();
+
+        Spinner yearSpinner = (Spinner) findViewById(R.id.year);
+        String year = yearSpinner.getSelectedItem().toString();
+
+        Spinner hourSpinner = (Spinner) findViewById(R.id.hour);
+        String hour = hourSpinner.getSelectedItem().toString();
+
+        Spinner minSpinner = (Spinner) findViewById(R.id.min);
+        String min = minSpinner.getSelectedItem().toString();
+
+        if(subject.isEmpty()) {
+            displayError("NO_SUBJECT_SPECIFIED");
+        } else {
+            proceed(subject,day+"-"+month+"-"+year ,hour+":"+min);
+        }
+
+    }
+
+    private void proceed(String subject, String date, String time) {
+        LayoutInflater layoutInflater = LayoutInflater.from(SchedualAppointmentActivity.this);
+        final View promptView = layoutInflater.inflate(R.layout.prompt_schedule_confirmation, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SchedualAppointmentActivity.this);
+        alertDialogBuilder.setView(promptView);
+
+        TextView dateTF = (TextView) promptView.findViewById(R.id.date);
+        TextView timeTF = (TextView) promptView.findViewById(R.id.time);
+
+
+        dateTF.setText(date);
+        timeTF.setText(time);
+
+
+
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        updateAccountInformation();
+
+                    }
+                })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
+    //Ici on devrait ajouter le message dans les informations du compte, mais je ne sais pas si c'est néccessaire pour le cadre du cours.
+    //To do pour y réfléchir(pour l'instant on redirect vers le home page c'est tout.
+    //TODO
+    private void updateAccountInformation() {
+        Intent i = new Intent(getApplicationContext(), MainMenuActivity.class);
+
+        i.putExtra("account", account);
+        startActivity(i);
+        finish();
+    }
+
+    private void displayError(String reason) {
+
+
+            LayoutInflater layoutInflater = LayoutInflater.from(SchedualAppointmentActivity.this);
+            final View promptView = layoutInflater.inflate(R.layout.prompt_error, null);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SchedualAppointmentActivity.this);
+            alertDialogBuilder.setView(promptView);
+
+            TextView errorMessageTF = (TextView) promptView.findViewById(R.id.errorMessage);
+
+            if(reason.equals("NO_SUBJECT_SPECIFIED")) {
+                errorMessageTF.setText("You have to specify a reason for your visit.");
+            }
+
+            // setup a dialog window
+            alertDialogBuilder.setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+
+            // create an alert dialog
+            AlertDialog alert = alertDialogBuilder.create();
+            alert.show();
+
     }
 
     public void openMenu(View v) {
