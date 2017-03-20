@@ -40,8 +40,14 @@ public class RightMenuActivity extends AppCompatActivity {
     }
 
     //TODO
+    //on redirect vers la page qui présente le display pour céduler un rendez-vous.
     public void schedule(View v) {
 
+        Intent i = new Intent(getApplicationContext(), SchedualAppointmentActivity.class);
+
+        i.putExtra("account", account);
+        startActivity(i);
+        finish();
     }
 
     //TODO

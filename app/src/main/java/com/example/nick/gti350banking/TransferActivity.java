@@ -158,10 +158,10 @@ public class TransferActivity extends AppCompatActivity {
 
     }
 
-    //TODO
+
     private void displayError(String errorType) {
         LayoutInflater layoutInflater = LayoutInflater.from(TransferActivity.this);
-        final View promptView = layoutInflater.inflate(R.layout.prompt_transfer_error, null);
+        final View promptView = layoutInflater.inflate(R.layout.prompt_error, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TransferActivity.this);
         alertDialogBuilder.setView(promptView);
 
