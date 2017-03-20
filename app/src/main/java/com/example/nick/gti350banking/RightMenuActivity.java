@@ -26,6 +26,7 @@ public class RightMenuActivity extends AppCompatActivity {
         finish();
     }
 
+    //TODO
     public void interacTransfer(View v) {
 
     }
@@ -38,14 +39,17 @@ public class RightMenuActivity extends AppCompatActivity {
         finish();
     }
 
+    //TODO
     public void schedule(View v) {
 
     }
 
+    //TODO
     public void signalStolenCard(View v) {
 
     }
 
+    //TODO
     public void makeAPayment(View v) {
 
     }
