@@ -18,7 +18,8 @@
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".RightMenuActivity" />
         <activity android:name=".TransferActivity" />
-        <activity android:name=".SchedualAppointmentActivity"></activity>
+        <activity android:name=".SchedualAppointmentActivity" />
+        <activity android:name=".InteractTransferActivity"></activity>
     </application>
 
 </manifest>

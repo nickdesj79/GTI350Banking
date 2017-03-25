@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class SingletonAccountManager {
 
     private ArrayList<OnlineAccount> accountList = new ArrayList<OnlineAccount>();
+    private ArrayList<InteracTransfer> interacTransferList = new ArrayList<>();
 
     private static SingletonAccountManager INSTANCE = null;
 
@@ -31,6 +32,14 @@ public class SingletonAccountManager {
 
     public ArrayList<OnlineAccount> getAccountList() {
         return this.accountList;
+    }
+
+    public void addInteractTransfer(InteracTransfer iTransfer) {
+        interacTransferList.add(iTransfer);
+    }
+
+    public ArrayList<InteracTransfer> getInteracTransferList() {
+        return this.interacTransferList;
     }
 
 

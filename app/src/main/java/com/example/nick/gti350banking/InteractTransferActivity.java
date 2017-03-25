@@ -3,8 +3,8 @@ package com.example.nick.gti350banking;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,16 +12,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+public class InteractTransferActivity extends AppCompatActivity {
 
-public class TransferActivity extends AppCompatActivity {
 
     private OnlineAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transfer);
+        setContentView(R.layout.activity_interact_transfer);
 
         account = (OnlineAccount) getIntent().getSerializableExtra("account");
 
@@ -30,85 +29,87 @@ public class TransferActivity extends AppCompatActivity {
 
         //set le display de la liste de from account pour le transfert
         Spinner fromAcc = (Spinner)findViewById(R.id.fromAccount);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferActivity.this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(InteractTransferActivity.this,
                 android.R.layout.simple_spinner_item,list);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fromAcc.setAdapter(adapter);
-
-        String[]list2 = {"Savings       " + account.getSavingAccount().getAmount()+"$", "Checkings       " + account.getChekingAccount().getAmount()+"$"};
-        //set le display de  la liste de to account pour le transfert
-        Spinner toAcc = (Spinner)findViewById(R.id.toAccount);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferActivity.this,
-                android.R.layout.simple_spinner_item,list2);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        toAcc.setAdapter(adapter);
-
-
     }
 
+    //analyser les edit text pour voir si les champs ont été remplis.
     public void confirmTransfer(View v) {
+
+        EditText toET = (EditText) findViewById(R.id.to);
+        String toAddress = toET.getText().toString();
+
+        EditText amountET = (EditText) findViewById(R.id.amount);
+        String amount = amountET.getText().toString();
+
+        EditText passwordET = (EditText) findViewById(R.id.password);
+        String password = passwordET.getText().toString();
+
         Spinner fromAccountSpinner = (Spinner) findViewById(R.id.fromAccount);
         String fromAccount = fromAccountSpinner.getSelectedItem().toString();
 
-        Spinner toAccountSpinner = (Spinner) findViewById(R.id.toAccount);
-        String toAccount = toAccountSpinner.getSelectedItem().toString();
-
-        //si les deux montants proviennent du même compte
-        if(fromAccount.substring(0,5).equals(toAccount.substring(0,5))) {
-            displayError("SAME_ACCOUNT");
-        } else {
-            EditText amountET = (EditText) findViewById(R.id.amount);
-            int amount = Integer.parseInt(amountET.getText().toString());
-
-            if(fromAccount.startsWith("Check")) {
-                if(account.getChekingAccount().getAmount() < amount) {
-                    displayError("NOT_ENOUGH_MONEY");
-                } else {
-                    proceed("Checking","Saving",amount);
-                }
-            } else {
-                if(account.getSavingAccount().getAmount() < amount) {
-                    displayError("NOT_ENOUGH_MONEY");
-                } else {
-                    proceed("Saving","Checking",amount);
+        if(toAddress.isEmpty()) {
+            displayError("NO_ADDRESS");
+        } else if(amount.isEmpty()) {
+            displayError("NO_AMOUNT");
+        } else if(Integer.parseInt(amount) <= 0) {
+            displayError("NEGATIVE_AMOUNT");
+        } else if(password.isEmpty()) {
+            displayError("NO_PASSWORD");
+        }   else {
+            OnlineAccount accountToSend = null;
+            for(OnlineAccount a : SingletonAccountManager.getInstance().getAccountList()) {
+                if(a.getEmail().equals(toAddress)) {
+                    accountToSend = a;
                 }
             }
+
+            if(accountToSend == null) {
+                displayError("ACCOUNT_NO_EXIST");
+            } else {
+                proceedTransaction(accountToSend,amount, fromAccount, password);
+            }
         }
+
+
     }
 
-    //display un pop up de confirmation et attend une réponse de l'utilisateur s'il désire confirmer son transfer.
-    private void proceed(final String fromAccount, final String toAccount, final int amount) {
-        LayoutInflater layoutInflater = LayoutInflater.from(TransferActivity.this);
-        final View promptView = layoutInflater.inflate(R.layout.prompt_transfer_confirmation, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TransferActivity.this);
+    private void proceedTransaction(final OnlineAccount accountToSend, final String amount, final String fromAccount, final String password) {
+        LayoutInflater layoutInflater = LayoutInflater.from(InteractTransferActivity.this);
+        final View promptView = layoutInflater.inflate(R.layout.prompt_interact_transfer_confirmation, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(InteractTransferActivity.this);
         alertDialogBuilder.setView(promptView);
 
         TextView amountTF = (TextView) promptView.findViewById(R.id.amount);
         TextView fromTF = (TextView) promptView.findViewById(R.id.from);
         TextView toTF = (TextView) promptView.findViewById(R.id.to);
-        TextView checkingbalanceTF = (TextView) promptView.findViewById(R.id.chekingBalance);
-        TextView savingBalanceTF = (TextView) promptView.findViewById(R.id.savingBalance);
+        TextView accountBalanceTF = (TextView) promptView.findViewById(R.id.balancesAccount);
+        TextView accountAmountTF = (TextView) promptView.findViewById(R.id.accountBalance);
 
 
         amountTF.setText(amount + "$");
-        fromTF.setText(fromAccount);
-        toTF.setText(toAccount);
+        toTF.setText(accountToSend.getEmail());
 
-        if(fromAccount.startsWith("Check")) {
-            checkingbalanceTF.setText((account.getChekingAccount().getAmount()-amount) + "$");
-            savingBalanceTF.setText((account.getSavingAccount().getAmount()+amount) + "$");
+        if(fromAccount.startsWith("Checking")) {
+            accountBalanceTF.setText("Checkings");
+            fromTF.setText("Checkings");
+            accountAmountTF.setText(""+(account.getChekingAccount().getAmount()-Integer.parseInt(amount)) + "$");
         } else {
-            checkingbalanceTF.setText((account.getChekingAccount().getAmount()+amount) + "$");
-            savingBalanceTF.setText((account.getSavingAccount().getAmount()-amount) + "$");
+            accountBalanceTF.setText("Savings");
+            fromTF.setText("Savings");
+            accountAmountTF.setText(""+(account.getSavingAccount().getAmount()-Integer.parseInt(amount))+ "$");
         }
+
+
 
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        updateAccountBalances(fromAccount,toAccount,amount);
+                        updateAccountBalances(accountToSend,amount,fromAccount,password);
 
                     }
                 })
@@ -122,19 +123,17 @@ public class TransferActivity extends AppCompatActivity {
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
-
     }
 
-    private void updateAccountBalances(String fromAccount, String toAccount,int amount) {
+    private void updateAccountBalances(OnlineAccount accountToSend, String amount, String fromAccount, String password) {
 
-
+        InteracTransfer iTransfer = new InteracTransfer(accountToSend, (float)(Integer.parseInt(amount)), fromAccount, password);
+        SingletonAccountManager.getInstance().addInteractTransfer(iTransfer);
 
         if(fromAccount.startsWith("Checking")) {
-            account.getChekingAccount().setAmount(account.getChekingAccount().getAmount()-amount);
-            account.getSavingAccount().setAmount(account.getSavingAccount().getAmount()+amount);
+            account.getChekingAccount().setAmount(account.getChekingAccount().getAmount()-Integer.parseInt(amount));
         } else {
-            account.getChekingAccount().setAmount(account.getChekingAccount().getAmount()+amount);
-            account.getSavingAccount().setAmount(account.getSavingAccount().getAmount()-amount);
+            account.getSavingAccount().setAmount(account.getSavingAccount().getAmount()-Integer.parseInt(amount));
         }
 
         OnlineAccount accountToRemove = null;
@@ -147,8 +146,6 @@ public class TransferActivity extends AppCompatActivity {
         SingletonAccountManager.getInstance().getAccountList().remove(accountToRemove);
         SingletonAccountManager.getInstance().addAccount(account);
 
-
-
         Intent i = new Intent(getApplicationContext(), MainMenuActivity.class);
 
         i.putExtra("account", account);
@@ -159,21 +156,24 @@ public class TransferActivity extends AppCompatActivity {
 
 
     private void displayError(String errorType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(TransferActivity.this);
+        LayoutInflater layoutInflater = LayoutInflater.from(InteractTransferActivity.this);
         final View promptView = layoutInflater.inflate(R.layout.prompt_error, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TransferActivity.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(InteractTransferActivity.this);
         alertDialogBuilder.setView(promptView);
 
         TextView amountTF = (TextView) promptView.findViewById(R.id.errorMessage);
 
-        if(errorType.equals("NOT_ENOUGH_MONEY")){
-            amountTF.setText("You do not have this amount of money to transfer from your account.");
-        } else if (errorType.equals("SAME_ACCOUNT")){
-            amountTF.setText("You cannot transfer money onto the same account.");
+        if(errorType.equals("NO_ADDRESS")){
+            amountTF.setText("You have to specify an address for your recipient.");
+        } else if (errorType.equals("NO_AMOUNT")){
+            amountTF.setText("You have to specify an amount of money.");
+        } else if (errorType.equals("NEGATIVE_AMOUNT")){
+            amountTF.setText("You cannot send less than 0 dollars.");
+        }else if (errorType.equals("ACCOUNT_NO_EXIST")){
+            amountTF.setText("The account you're trying to send money does not exist.");
+        } else if (errorType.equals("NO_PASSWORD")){
+            amountTF.setText("You have to specify a security password.");
         }
-
-
-
 
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)

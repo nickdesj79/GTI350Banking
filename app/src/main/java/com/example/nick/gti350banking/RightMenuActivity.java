@@ -26,9 +26,12 @@ public class RightMenuActivity extends AppCompatActivity {
         finish();
     }
 
-    //TODO
     public void interacTransfer(View v) {
+        Intent i = new Intent(getApplicationContext(), InteractTransferActivity.class);
 
+        i.putExtra("account", account);
+        startActivity(i);
+        finish();
     }
 
     public void transfer(View v) {

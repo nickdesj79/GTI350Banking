@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GTI350Banking</string>
+    <string name="title_activity_interact_transfer">InteractTransferActivity</string>
 </resources>
