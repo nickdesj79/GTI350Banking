@@ -1,10 +1,12 @@
 package com.example.nick.gti350banking;
 
+import java.io.Serializable;
+
 /**
  * Created by Nick on 2017-03-25.
  */
 
-public class InteracTransfer {
+public class InteracTransfer implements Serializable {
 
     OnlineAccount toAccount;
     float amount;

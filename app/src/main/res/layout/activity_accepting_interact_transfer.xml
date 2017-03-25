@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_accepting_interact_transfer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.nick.gti350banking.AcceptingInteractTransferActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:text="From : "
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:fontFamily="sans-serif-condensed"/>
+        <TextView
+            android:layout_width="200sp"
+            android:layout_marginTop="10sp"
+            android:layout_gravity="center"
+            android:layout_height="40sp"
+            android:ellipsize="start"
+            android:text=""
+            android:gravity="center"
+            android:id="@+id/from"
+            android:textColorHint="#D3D3D3"/>
+
+        <TextView
+            android:layout_marginTop="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:text="Deposit into : "
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:fontFamily="sans-serif-condensed"/>
+
+        <Spinner
+            android:id="@+id/depositAccount"
+            android:layout_width="match_parent"
+            android:layout_height="40sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:text="Amount : "
+            android:textStyle="bold"
+            android:layout_marginTop="10sp"
+            android:textSize="25sp"
+            android:fontFamily="sans-serif-condensed"/>
+        <TextView
+            android:layout_width="200sp"
+            android:layout_marginTop="10sp"
+            android:layout_gravity="center"
+            android:layout_height="40sp"
+            android:ellipsize="start"
+            android:gravity="center"
+            android:id="@+id/amount"
+            android:textColorHint="#D3D3D3"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:text="Password : "
+            android:textStyle="bold"
+            android:layout_marginTop="20sp"
+            android:textSize="25sp"
+            android:fontFamily="sans-serif-condensed"/>
+        <EditText
+            android:layout_width="200sp"
+            android:layout_marginTop="10sp"
+            android:layout_gravity="center"
+            android:layout_height="40sp"
+            android:ellipsize="start"
+            android:gravity="center"
+            android:inputType="textPassword"
+            android:id="@+id/password"
+            android:background="@drawable/amountbackground"
+            android:hint="password..."
+            android:textColorHint="#D3D3D3"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="Return home"
+                    android:layout_gravity="right"
+                    android:onClick="goHome"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:weightSum="2"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="Confirm"
+                    android:onClick="confirmTransfer"
+                    android:layout_gravity="left"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:weightSum="7"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/titlebackground">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accepting Payment"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:layout_marginTop="7sp"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rightmenubutton"
+                android:onClick="openMenu"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

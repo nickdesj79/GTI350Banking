@@ -19,7 +19,9 @@
         <activity android:name=".RightMenuActivity" />
         <activity android:name=".TransferActivity" />
         <activity android:name=".SchedualAppointmentActivity" />
-        <activity android:name=".InteractTransferActivity"></activity>
+        <activity android:name=".InteractTransferActivity" />
+        <activity android:name=".NotificationsActivity" />
+        <activity android:name=".AcceptingInteractTransferActivity"></activity>
     </application>
 
 </manifest>

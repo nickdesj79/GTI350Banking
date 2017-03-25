@@ -47,7 +47,7 @@
                 android:text=""
                 android:id="@+id/notificationButton"
                 android:textColor="#FFFFFF"
-                android:onClick="openMenu"
+                android:onClick="showNotifications"
                 />
 
         </LinearLayout>

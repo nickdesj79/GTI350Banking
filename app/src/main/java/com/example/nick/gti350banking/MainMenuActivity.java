@@ -1,9 +1,13 @@
 package com.example.nick.gti350banking;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -17,6 +21,16 @@ public class MainMenuActivity extends AppCompatActivity {
 
 
         account = (OnlineAccount) getIntent().getSerializableExtra("account");
+
+        Button notificationBtn = (Button)findViewById(R.id.notificationButton);
+        int notificationAmount = 0;
+
+        for (InteracTransfer it : SingletonAccountManager.getInstance().getInteracTransferList()) {
+            if(it.toAccount.getEmail().equals(account.getEmail()) && it.getState().equals("SEND")) {
+                notificationAmount++;
+            }
+        }
+        notificationBtn.setText(""+notificationAmount);
 
         TextView chekingTF = (TextView) findViewById(R.id.cheking);
         TextView savingTF = (TextView) findViewById(R.id.saving);
@@ -33,5 +47,46 @@ public class MainMenuActivity extends AppCompatActivity {
         i.putExtra("account", account);
         startActivity(i);
         finish();
+    }
+
+    public void showNotifications(View v) {
+
+        Button btn = (Button)findViewById(R.id.notificationButton);
+        String notificationAmount = btn.getText().toString();
+
+        if(Integer.parseInt(notificationAmount) == 0) {
+            displayError("NO_NOTIFICATIONS");
+        } else {
+            Intent i = new Intent(getApplicationContext(), NotificationsActivity.class);
+
+            i.putExtra("account", account);
+            startActivity(i);
+            finish();
+        }
+    }
+
+    private void displayError(String errorType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(MainMenuActivity.this);
+        final View promptView = layoutInflater.inflate(R.layout.prompt_error, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainMenuActivity.this);
+        alertDialogBuilder.setView(promptView);
+
+        TextView amountTF = (TextView) promptView.findViewById(R.id.errorMessage);
+
+        if(errorType.equals("NO_NOTIFICATIONS")){
+            amountTF.setText("You have no notifications.");
+        }
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+
+                    }
+                });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 }

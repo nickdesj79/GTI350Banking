@@ -59,22 +59,40 @@ public class InteractTransferActivity extends AppCompatActivity {
             displayError("NEGATIVE_AMOUNT");
         } else if(password.isEmpty()) {
             displayError("NO_PASSWORD");
-        }   else {
-            OnlineAccount accountToSend = null;
-            for(OnlineAccount a : SingletonAccountManager.getInstance().getAccountList()) {
-                if(a.getEmail().equals(toAddress)) {
-                    accountToSend = a;
+        } else if(toAddress.equals(account.getEmail())) {
+            displayError("SAME_ADDRESS");
+        }
+        else {
+
+            boolean insufficientFund = false;
+
+            if(fromAccount.startsWith("Checking")) {
+                if(account.getChekingAccount().getAmount() - Integer.parseInt(amount) < 0) {
+                    insufficientFund = true;
+                }
+            } else {
+                if(account.getSavingAccount().getAmount() - Integer.parseInt(amount) < 0) {
+                    insufficientFund = true;
                 }
             }
 
-            if(accountToSend == null) {
-                displayError("ACCOUNT_NO_EXIST");
+            if(insufficientFund) {
+                displayError("INSUFFICIENT_FUND");
             } else {
-                proceedTransaction(accountToSend,amount, fromAccount, password);
+                OnlineAccount accountToSend = null;
+                for(OnlineAccount a : SingletonAccountManager.getInstance().getAccountList()) {
+                    if(a.getEmail().equals(toAddress)) {
+                        accountToSend = a;
+                    }
+                }
+
+                if(accountToSend == null) {
+                    displayError("ACCOUNT_NO_EXIST");
+                } else {
+                    proceedTransaction(accountToSend,amount, fromAccount, password);
+                }
             }
         }
-
-
     }
 
     private void proceedTransaction(final OnlineAccount accountToSend, final String amount, final String fromAccount, final String password) {
@@ -127,7 +145,7 @@ public class InteractTransferActivity extends AppCompatActivity {
 
     private void updateAccountBalances(OnlineAccount accountToSend, String amount, String fromAccount, String password) {
 
-        InteracTransfer iTransfer = new InteracTransfer(accountToSend, (float)(Integer.parseInt(amount)), fromAccount, password);
+        InteracTransfer iTransfer = new InteracTransfer(accountToSend, (float)(Integer.parseInt(amount)), account.getEmail(), password);
         SingletonAccountManager.getInstance().addInteractTransfer(iTransfer);
 
         if(fromAccount.startsWith("Checking")) {
@@ -173,7 +191,12 @@ public class InteractTransferActivity extends AppCompatActivity {
             amountTF.setText("The account you're trying to send money does not exist.");
         } else if (errorType.equals("NO_PASSWORD")){
             amountTF.setText("You have to specify a security password.");
+        } else if (errorType.equals("SAME_ADDRESS")){
+            amountTF.setText("You cannot send money to yourself.");
+        } else if (errorType.equals("INSUFFICIENT_FUND")){
+            amountTF.setText("You do not have enough money to execute this transfer");
         }
+
 
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)
