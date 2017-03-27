@@ -35,9 +35,24 @@ public class MainMenuActivity extends AppCompatActivity {
         TextView chekingTF = (TextView) findViewById(R.id.cheking);
         TextView savingTF = (TextView) findViewById(R.id.saving);
 
+        TextView creditCardTF = (TextView) findViewById(R.id.creditCardType);
+        TextView creditCardamount = (TextView) findViewById(R.id.creditCardAmount);
+
+        if(!account.getCardList().isEmpty()) {
+            if(account.getCardList().get(0).getBalances() < 0) {
+                creditCardamount.setText(Math.abs(account.getCardList().get(0).getBalances())+ "$ CR");
+            } else {
+                creditCardamount.setText(account.getCardList().get(0).getBalances() + "$");
+            }
+
+
+            creditCardTF.setText(account.getCardList().get(0).getType());
+        }
+
         chekingTF.setText(account.getChekingAccount().getAmount() + "$");
         savingTF.setText(account.getSavingAccount().getAmount() + "$");
     }
+
 
     public void openMenu(View v) {
 

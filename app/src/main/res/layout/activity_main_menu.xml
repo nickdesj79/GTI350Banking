@@ -69,16 +69,27 @@
 
     </LinearLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10sp"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bank accounts "
+            android:textStyle="bold|italic"
+            android:textSize="20sp"
+            android:layout_marginTop="7sp"
+            android:fontFamily="sans-serif-condensed"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80sp"
+            android:layout_height="60sp"
             android:weightSum="4"
             android:background="@drawable/stroke"
             android:orientation="horizontal">
@@ -93,8 +104,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Checkings"
-                    android:textSize="25sp"
-                    android:layout_marginTop="30sp"
+                    android:textSize="15sp"
+                    android:layout_marginTop="22sp"
                     android:layout_marginLeft="30sp"
                     android:fontFamily="sans-serif-condensed"
                     android:id="@+id/textView" />
@@ -112,9 +123,9 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:id="@+id/cheking"
-                    android:textSize="25sp"
+                    android:textSize="15sp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="30sp"
+                    android:layout_marginTop="22sp"
                     android:fontFamily="sans-serif-condensed"/>
 
             </LinearLayout>
@@ -125,7 +136,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80sp"
+            android:layout_height="60sp"
             android:weightSum="4"
             android:layout_marginTop="5sp"
             android:background="@drawable/stroke"
@@ -141,8 +152,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Savings"
-                    android:textSize="25sp"
-                    android:layout_marginTop="30sp"
+                    android:textSize="15sp"
+                    android:layout_marginTop="22sp"
                     android:layout_marginLeft="30sp"
                     android:fontFamily="sans-serif-condensed"/>
 
@@ -159,15 +170,70 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:id="@+id/saving"
-                    android:textSize="25sp"
+                    android:textSize="15sp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="30sp"
+                    android:layout_marginTop="22sp"
                     android:fontFamily="sans-serif-condensed"/>
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credit cards  "
+            android:textStyle="bold|italic"
+            android:textSize="20sp"
+            android:layout_marginTop="7sp"
+            android:fontFamily="sans-serif-condensed"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:weightSum="4"
+            android:layout_marginTop="5sp"
+            android:background="@drawable/stroke"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/creditCardType"
+                    android:textSize="15sp"
+                    android:layout_marginTop="22sp"
+                    android:layout_marginLeft="30sp"
+                    android:fontFamily="sans-serif-condensed"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/creditCardAmount"
+                    android:textSize="15sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="22sp"
+                    android:fontFamily="sans-serif-condensed"/>
+
+            </LinearLayout>
 
         </LinearLayout>
+
+
 
 
     </LinearLayout>

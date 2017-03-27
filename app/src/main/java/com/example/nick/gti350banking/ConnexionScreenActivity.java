@@ -24,12 +24,24 @@ public class ConnexionScreenActivity extends AppCompatActivity {
         if(SingletonAccountManager.getInstance() == null) {
             SingletonAccountManager.createInstance();
 
+            //setting les informations du comptes #1 sur le download de l'application
             OnlineAccount account1 = new OnlineAccount("abcde@hotmail.com", "abcde");
             CheckingsAccount chkgsAcc1 = new CheckingsAccount(1000);
             SavingsAccount svgsAcc1 = new SavingsAccount(5000);
             account1.setChekingAccount(chkgsAcc1);
             account1.setSavingAccount(svgsAcc1);
+            CreditCard card1 = new CreditCard("1234567898765432","MasterCard");
+            account1.addCard(card1);
 
+            CreditCardInvoices invoices1 = new CreditCardInvoices("Kanda", 20);
+            CreditCardInvoices invoices2 = new CreditCardInvoices("3Dragons", 77);
+
+            card1.setBalances(97);
+
+            card1.addInvoices(invoices1);
+            card1.addInvoices(invoices2);
+
+            //setting les informations du comptes #2 sur le download de l'application
             OnlineAccount account2 = new OnlineAccount("12345@hotmail.com", "12345");
             CheckingsAccount chkgsAcc2 = new CheckingsAccount(2000);
             SavingsAccount svgsAcc2 = new SavingsAccount(3000);

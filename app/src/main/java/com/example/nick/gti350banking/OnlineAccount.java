@@ -1,6 +1,7 @@
 package com.example.nick.gti350banking;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Nick on 2017-03-15.
@@ -14,6 +15,8 @@ public class OnlineAccount implements Serializable {
     //wont be encrypted for school work usage
     private String password;
 
+    private ArrayList<CreditCard> cardList = new ArrayList<>();
+
     private SavingsAccount savingAccount;
 
     private CheckingsAccount chekingAccount;
@@ -22,6 +25,14 @@ public class OnlineAccount implements Serializable {
         this.email = email;
         this.password = password;
 
+    }
+
+    public void addCard(CreditCard c) {
+        cardList.add(c);
+    }
+
+    public ArrayList<CreditCard> getCardList() {
+        return this.cardList;
     }
 
     public String getEmail() {

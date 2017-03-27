@@ -6,7 +6,7 @@ package com.example.nick.gti350banking;
 
 public class DebitCard extends Card {
 
-    public DebitCard(int card_number) {
+    public DebitCard(String card_number) {
         super(card_number);
     }
 }

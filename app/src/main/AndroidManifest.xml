@@ -21,7 +21,8 @@
         <activity android:name=".SchedualAppointmentActivity" />
         <activity android:name=".InteractTransferActivity" />
         <activity android:name=".NotificationsActivity" />
-        <activity android:name=".AcceptingInteractTransferActivity"></activity>
+        <activity android:name=".AcceptingInteractTransferActivity" />
+        <activity android:name=".MakePaymentActivity"></activity>
     </application>
 
 </manifest>
