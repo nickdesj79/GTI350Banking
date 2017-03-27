@@ -46,7 +46,7 @@ public class RightMenuActivity extends AppCompatActivity {
         finish();
     }
 
-    //TODO
+
     //on redirect vers la page qui présente le display pour céduler un rendez-vous.
     public void schedule(View v) {
 
@@ -57,15 +57,38 @@ public class RightMenuActivity extends AppCompatActivity {
         finish();
     }
 
-    //TODO
+
     public void signalStolenCard(View v) {
+
+        if(!account.getCardList().isEmpty()) {
+            int x = 0;
+            for(CreditCard c : account.getCardList()) {
+                if(c.getState().equals("AVAILABLE")){
+                    x++;
+                }
+            }
+            if(0==x) {
+                performError("NO_AVAILABLE_CARD");
+            } else {
+                Intent i = new Intent(getApplicationContext(), SignalStolenCardActivity.class);
+
+                i.putExtra("account", account);
+                startActivity(i);
+                finish();
+            }
+
+        } else {
+            performError("NO_CARD_REGISTERED");
+        }
+
 
     }
 
-    //TODO
+
     public void makeAPayment(View v) {
 
         if(!account.getCardList().isEmpty()){
+
             Intent i = new Intent(getApplicationContext(), MakePaymentActivity.class);
 
             i.putExtra("account", account);
@@ -100,7 +123,9 @@ public class RightMenuActivity extends AppCompatActivity {
 
        if (errorType.equals("NO_CARD_REGISTERED")){
             amountTF.setText("You have no card registered, therefore, nothing to pay.");
-       }
+       } else if (errorType.equals("NO_AVAILABLE_CARD")){
+            amountTF.setText("You have no available card.");
+        }
 
         // setup a dialog window
         alertDialogBuilder.setCancelable(false)

@@ -52,7 +52,6 @@ public class AcceptingInteractTransferActivity extends AppCompatActivity {
 
         if(!password.equals(interacTransfer.getPassword())) {
             interacTransfer.setAttempted_try(interacTransfer.getAttempted_try()-1);
-            updateTransferDatabase();
             if(interacTransfer.getAttempted_try() == 0) {
                 refundInteracTransferSender();
                 interacTransfer.setState("FAILED");
@@ -142,11 +141,13 @@ public class AcceptingInteractTransferActivity extends AppCompatActivity {
         fromTF.setText(interacTransfer.getFromEmail());
 
         if(depositAccount.startsWith("Checking")) {
+            accountDepositTF.setText("Checking");
             accountBalanceTF.setText("Checkings");
-            accountAmountTF.setText(""+(account.getChekingAccount().getAmount()-(int) interacTransfer.getAmount()) + "$");
+            accountAmountTF.setText(""+(account.getChekingAccount().getAmount()) + "$");
         } else {
             accountBalanceTF.setText("Savings");
-            accountAmountTF.setText(""+(account.getSavingAccount().getAmount()-(int) interacTransfer.getAmount())+ "$");
+            accountDepositTF.setText("Savings");
+            accountAmountTF.setText(""+(account.getSavingAccount().getAmount())+ "$");
         }
 
         // setup a dialog window

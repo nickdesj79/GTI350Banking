@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_signal_stolen_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.nick.gti350banking.SignalStolenCardActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:weightSum="7"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/titlebackground">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Signal stolen card"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="35sp"
+                android:layout_marginTop="7sp"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rightmenubutton"
+                android:onClick="openMenu"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16sp"
+        android:orientation="vertical">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:text="Select card : "
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:fontFamily="sans-serif-condensed"/>
+
+        <Spinner
+            android:id="@+id/cardSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="70sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginTop="20sp"
+            android:layout_height="wrap_content"
+            android:text="By deleting your card, you will still be able to pay your current invoices, but you won't be able to make any more purchase. "
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-condensed"/>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:layout_marginTop="20sp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="Return home"
+                    android:layout_gravity="right"
+                    android:onClick="goHome"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:weightSum="2"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="Confirm"
+                    android:onClick="confirmStolenCard"
+                    android:layout_gravity="left"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

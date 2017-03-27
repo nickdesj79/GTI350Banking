@@ -1,10 +1,14 @@
 package com.example.nick.gti350banking;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -97,6 +101,27 @@ public class ConnexionScreenActivity extends AppCompatActivity {
     //TODO
     //Changer la page pour montrer qu'une erreur s'est produite
     private void performLoginError() {
+        LayoutInflater layoutInflater = LayoutInflater.from(ConnexionScreenActivity.this);
+        final View promptView = layoutInflater.inflate(R.layout.prompt_error, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ConnexionScreenActivity.this);
+        alertDialogBuilder.setView(promptView);
 
+        TextView amountTF = (TextView) promptView.findViewById(R.id.errorMessage);
+
+
+        amountTF.setText("Wrong username or password.");
+
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+
+                    }
+                });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 }
