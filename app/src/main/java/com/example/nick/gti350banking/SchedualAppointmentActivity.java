@@ -72,6 +72,12 @@ public class SchedualAppointmentActivity extends AppCompatActivity {
         int currentMonth = cal.get(Calendar.MONTH);
         int currentDay = cal.get(Calendar.DAY_OF_MONTH);
 
+        if(31<currentDay + 1) {
+            currentDay = 1;
+        } else {
+            currentDay = currentDay+1;
+        }
+
         //--------------------------------------------------------------------------------
         Spinner daySpinner = (Spinner)findViewById(R.id.day);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(SchedualAppointmentActivity.this,
@@ -146,10 +152,40 @@ public class SchedualAppointmentActivity extends AppCompatActivity {
 
         if(subject.isEmpty()) {
             displayError("NO_SUBJECT_SPECIFIED");
+        } else if(!isPastDate(day,month,year)) {
+            displayError("WRONG_DATE");
         } else {
             proceed(subject,day+"-"+month+"-"+year ,hour+":"+min);
         }
 
+    }
+
+    private boolean isPastDate(String day, String month, String year) {
+
+        boolean isOneDayInAddvance = false;
+
+        int intMonth = 0;
+        for(int i = 0; i < differentMonthsOfYear.length;i++) {
+            if(differentMonthsOfYear[i].equals(month)) {
+                intMonth = i;
+                break;
+            }
+        }
+
+        Calendar cal = Calendar.getInstance();
+        int currentYear = cal.get(Calendar.YEAR);
+        int currentMonth = cal.get(Calendar.MONTH);
+        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+
+        if(currentYear < Integer.parseInt(year)) {
+            isOneDayInAddvance = true;
+        } else if(currentYear == Integer.parseInt(year) && currentMonth < intMonth) {
+            isOneDayInAddvance = true;
+        } else if(currentYear == Integer.parseInt(year) && currentMonth == intMonth && currentDay < Integer.parseInt(day)) {
+            isOneDayInAddvance = true;
+        }
+
+        return isOneDayInAddvance;
     }
 
     private void proceed(String subject, String date, String time) {
@@ -210,6 +246,8 @@ public class SchedualAppointmentActivity extends AppCompatActivity {
 
             if(reason.equals("NO_SUBJECT_SPECIFIED")) {
                 errorMessageTF.setText("You have to specify a reason for your visit.");
+            } else  if(reason.equals("WRONG_DATE")) {
+                errorMessageTF.setText("You have to schedual an appointment at least one day in advance.");
             }
 
             // setup a dialog window

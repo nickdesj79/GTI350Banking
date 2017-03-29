@@ -9,6 +9,49 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:weightSum="7"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/titlebackground">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accepting Transfer"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="35sp"
+                android:layout_marginTop="7sp"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rightmenubutton"
+                android:onClick="openMenu"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16sp"
         android:orientation="vertical">
